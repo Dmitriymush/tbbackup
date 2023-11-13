@@ -1,0 +1,33 @@
+{
+  "entityType" : "WIDGET_TYPE",
+  "entity" : {
+    "fqn" : "11_03_23_rpc_example",
+    "name" : "11/03/23 rpc example",
+    "deprecated" : false,
+    "image" : null,
+    "description" : null,
+    "descriptor" : {
+      "type" : "rpc",
+      "sizeX" : 4,
+      "sizeY" : 2,
+      "resources" : [ ],
+      "templateHtml" : "<div class=\"on-off-container\">\n    <div class=\"error-container\">\n        <span [innerHtml]='error'>\n            \n        </span>\n    </div>\n    <mat-slide-toggle [checked]='stateValue === 1' (toggleChange)=\"sendRpc()\">\n        <span>{{stateValueLabel}}</span>\n    </mat-slide-toggle>\n</div>",
+      "templateCss" : ".on-off-container {\n    height:  100%;\n    padding: 0 20px 20px;\n}\n\n.error-container {\n    height: 20px;\n    width: 100%;\n    text-align: center;\n    color: red;\n}",
+      "controllerScript" : "let $scope;\nself.onInit = function() {\n    $scope = self.ctx.$scope;\n    $scope.error = \"\";\n    $scope.stateValue = 0;\n    $scope.stateValueLabel = \"Off\";\n    $scope.sendRpc = () => {\n        $scope.stateValueLabel =  $scope.stateValueLabel === \"On\" ? \"Off\" : \"On\";\n        rpcSetValue();\n    }\n    \n    rpcGetValue();\n}\n\nfunction rpcSetValue() {\n    $scope.error = \"\";\n    $scope.stateValue = $scope.stateValue ? 1 : 0;\n    self.ctx.detectChanges();\n    const params = $scope.stateValue;\n    self.ctx.controlApi.sendOneWayCommand(\"setValue\", params, 500).subscribe((data) => {\n        console.log(\"Success!\", data);\n    },\n    () => {\n        $scope.error = self.ctx.defaultSubscription.rpcErrorText;\n        $scope.stateValueLabel =  $scope.stateValueLabel === \"On\" ? \"Off\" : \"On\";\n        $scope.stateValue = $scope.stateValue ? 1 : 0;\n        self.ctx.detectChanges();\n    })\n}\n\nfunction rpcGetValue() {\n    $scope.error = '';\n    self.ctx.controlApi.sendTwoWayCommand(\"getValue\", null, 500).subscribe((response) => {\n        console.log(response, 'response');\n        $scope.stateValue = response ? 1 : 0;\n        $scope.stateValueLabel = !$scope.stateValue ? \"Off\" : \"On\";\n        self.ctx.detectChanges();\n    },\n    () => {\n        $scope.error = self.ctx.defaultSubscription.rpcErrorText;\n        self.ctx.detectChanges();\n    })\n}",
+      "settingsSchema" : "",
+      "dataKeySettingsSchema" : "{}\n",
+      "settingsDirective" : "tb-gpio-control-widget-settings",
+      "defaultConfig" : "{\"targetDeviceAliases\":[],\"showTitle\":true,\"backgroundColor\":\"#fff\",\"color\":\"rgba(0, 0, 0, 0.87)\",\"padding\":\"0px\",\"settings\":{\"parseGpioStatusFunction\":\"return body[pin] === true;\",\"gpioStatusChangeRequest\":{\"method\":\"setGpioStatus\",\"paramsBody\":\"{\\n   \\\"pin\\\": \\\"{$pin}\\\",\\n   \\\"enabled\\\": \\\"{$enabled}\\\"\\n}\"},\"requestTimeout\":500,\"switchPanelBackgroundColor\":\"#b71c1c\",\"gpioStatusRequest\":{\"method\":\"getGpioStatus\",\"paramsBody\":\"{}\"},\"gpioList\":[{\"pin\":1,\"label\":\"GPIO 1\",\"row\":0,\"col\":0,\"_uniqueKey\":0},{\"pin\":2,\"label\":\"GPIO 2\",\"row\":0,\"col\":1,\"_uniqueKey\":1},{\"pin\":3,\"label\":\"GPIO 3\",\"row\":1,\"col\":0,\"_uniqueKey\":2}]},\"title\":\"11/03/23 rpc example\"}"
+    },
+    "externalId" : null,
+    "id" : {
+      "entityType" : "WIDGET_TYPE",
+      "id" : "494c2ab0-7cb4-11ee-9848-1f8541d82d31"
+    },
+    "tags" : null
+  },
+  "relations" : [ ],
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}

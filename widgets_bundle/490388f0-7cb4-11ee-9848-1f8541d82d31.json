@@ -1,0 +1,21 @@
+{
+  "entityType" : "WIDGETS_BUNDLE",
+  "entity" : {
+    "alias" : "11_03_13_training",
+    "description" : null,
+    "externalId" : null,
+    "id" : {
+      "entityType" : "WIDGETS_BUNDLE",
+      "id" : "490388f0-7cb4-11ee-9848-1f8541d82d31"
+    },
+    "image" : null,
+    "name" : "11/03/13 training",
+    "order" : null,
+    "title" : "11/03/13 training"
+  },
+  "fqns" : [ "11_03_23_latest_card_example", "11_03_23_timeseries_example", "11_03_23_rpc_example" ],
+  "relations" : [ ],
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}

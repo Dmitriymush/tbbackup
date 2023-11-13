@@ -1,0 +1,32 @@
+{
+  "entityType" : "WIDGET_TYPE",
+  "entity" : {
+    "fqn" : "11_03_23_latest_card_example",
+    "name" : "11/03/23 latest card example",
+    "deprecated" : false,
+    "image" : null,
+    "description" : null,
+    "descriptor" : {
+      "type" : "latest",
+      "sizeX" : 7.5,
+      "sizeY" : 4.5,
+      "resources" : [ ],
+      "templateHtml" : "<div class=\"training-card\" [ngStyle]=\"{'background-color': widgetBackGroundColor}\">\n    <div [ngStyle]=\"{'color': labelColor, 'font-size': labelFontSize}\">{{dataKeyLabel}}</div>\n    <div>{{lastValue}}</div>\n    <div>{{lastTimeStamp | date : 'yyyy-MM-dd HH:mm:ss'}}</div>\n</div>",
+      "templateCss" : ".training-card {\n    height: 100%;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: space-between;\n}",
+      "controllerScript" : "let $scope;\n\nself.onInit = function() {\n    $scope = self.ctx.$scope;\n    $scope.lastValue = 0;\n    $scope.lastTimeStamp = 0;\n    $scope.dataKeyLabel = 'No label';\n    $scope.labelColor = self.ctx.settings.labelColor;\n    $scope.widgetBackGroundColor = self.ctx.settings.widgetBackGroundColor;\n    $scope.labelFontSize = self.ctx.settings.labelFontSize + \"px\";\n    $scope.ctx.detectChanges();\n}\n\nself.onDataUpdated = function() {\n    let dataKeyData = self.ctx.data[0];\n    if (dataKeyData.data[0]) {\n        $scope.lastValue = dataKeyData.data[0][1];\n        $scope.lastTimeStamp = dataKeyData.data[0][0];\n        $scope.dataKeyLabel = dataKeyData.dataKey.label;\n        $scope.ctx.detectChanges();\n    }\n}\n\n",
+      "settingsSchema" : "{\n    \"schema\": {\n        \"type\": \"object\",\n        \"title\": \"Settings\",\n        \"properties\": {\n            \"labelColor\": {\n                \"title\": \"Label color\",\n                \"type\": \"string\",\n                \"default\": \"#000\"\n            },\n            \"labelFontSize\": {\n                \"title\": \"Label Size\",\n                \"type\": \"number\",\n                \"default\": \"14\"\n            },\n            \"widgetBackGroundColor\" : {\n                \"title\": \"Widget backround-color\",\n                \"type\": \"string\",\n                \"default\": \"#000\"\n            }\n        },\n        \"required\": []\n    },\n    \"form\": [\n        {\n            \"key\": \"labelColor\",\n            \"type\": \"color\"\n        },\n        {\n            \"key\": \"widgetBackGroundColor\",\n            \"type\": \"color\"\n        },\n        \"labelFontSize\"\n    ]\n}",
+      "dataKeySettingsSchema" : "{}\n",
+      "defaultConfig" : "{\"datasources\":[{\"type\":\"function\",\"name\":\"function\",\"dataKeys\":[{\"name\":\"f(x)\",\"type\":\"function\",\"label\":\"Random\",\"color\":\"#2196f3\",\"settings\":{},\"_hash\":0.15479322438769105,\"funcBody\":\"var value = prevValue + Math.random() * 100 - 50;\\nvar multiplier = Math.pow(10, 2 || 0);\\nvar value = Math.round(value * multiplier) / multiplier;\\nif (value < -1000) {\\n\\tvalue = -1000;\\n} else if (value > 1000) {\\n\\tvalue = 1000;\\n}\\nreturn value;\"}]}],\"timewindow\":{\"realtime\":{\"timewindowMs\":60000}},\"showTitle\":true,\"backgroundColor\":\"#fff\",\"color\":\"rgba(0, 0, 0, 0.87)\",\"padding\":\"8px\",\"settings\":{\"widgetBackGroundColor\":\"#3da241\",\"labelFontSize\":21,\"labelColor\":\"#0c0303\"},\"title\":\"11/03/23 latest card example\"}"
+    },
+    "externalId" : null,
+    "id" : {
+      "entityType" : "WIDGET_TYPE",
+      "id" : "494c2ab1-7cb4-11ee-9848-1f8541d82d31"
+    },
+    "tags" : null
+  },
+  "relations" : [ ],
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}
